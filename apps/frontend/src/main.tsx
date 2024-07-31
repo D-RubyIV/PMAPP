@@ -25,6 +25,7 @@ import VoucherComponent from './component/manage/table/VoucherComponent.tsx'
 import OrderComponent from './component/manage/table/OrderComponent.tsx'
 import OrderDetailComponent from './component/manage/table/OrderDetailComponent.tsx'
 import CheckOutComponent from './component/pages/checkout/CheckOutComponent.tsx'
+import ArmorComponent from './component/pages/service/component/ArmorComponent.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
         <Route path='product/:id' element={<DetailComponent />} />
         <Route path='setting' element={<SettingComponent />} />
         <Route path='profile' element={<ProfileComponent />} />
+        <Route path='armor' element={<ArmorComponent />} />
       </Route>
       <Route path='checkout' element={<CheckOutComponent />} />
       <Route path='auth' element={<AuthComponent />} />

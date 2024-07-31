@@ -1,0 +1,3 @@
+type FileUpload = {
+    name: string
+}

@@ -31,7 +31,7 @@ const PolicyComponent = () => {
         },
     ]
     return (
-        <div className="overflow-scroll mt-3" ref={containerRef}>
+        <div className="overflow-scroll mt-5" ref={containerRef}>
             <motion.div
                 className="grid grid-cols-2 text-[11px] text-center gap-x-1"
                 animate={mainControls}

@@ -1,15 +1,13 @@
 import BenefitsComponent from "../../body/BenefitsComponen";
 import PolicyComponent from "../footer/PolicyComponent";
-import RegisterNotification from "../footer/RegisterNotification";
-import ProductComponent from "./ProductComponent";
+import ServiceComponent from "../service/ServiceComponent";
 const DashBoardComponent = () => {
 
     return (
         <div>
             <BenefitsComponent />
-            <ProductComponent />
-            {/* <BlogComponent/> */}
-            <RegisterNotification />
+            <ServiceComponent />
+            {/* <RegisterNotification /> */}
             {/* <FooterComponent/> */}
             <PolicyComponent />
         </div>

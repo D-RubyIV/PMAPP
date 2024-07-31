@@ -1,0 +1,107 @@
+version: '3.9'
+
+services:
+  database:
+    image: mysql:8
+    command: --max_allowed_packet=1024000000
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: product
+      MYSQL_USER: product
+      MYSQL_PASSWORD: password
+    volumes:
+      - database_volumes:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 1s
+      timeout: 20s
+      retries: 10
+      start_period: 10s
+    networks:
+      - dev
+      
+  server:
+    build:
+      context: .
+      dockerfile: apps/docker/backend/Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/product
+      SPRING_DATASOURCE_USERNAME: product
+      SPRING_DATASOURCE_PASSWORD: password
+      #VNPAY
+      PAY_URL: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+      TMN_CODE: 58X4B4HP
+      SECRET_KEY: VRLDWNVWDNPCOEPBZUTWSEDQAGXJCNGZ
+      RETURN_URL: http://localhost:8080/api/v1/payment/vn-pay-callback
+      VERSION: 2.1.0
+      COMMAND: pay
+      ORDER_TYPE: other
+      #API
+      API_PREFIX: /api/v1
+    depends_on:
+      database:
+        condition: service_healthy
+        restart: true
+    networks:
+      - dev
+  client:
+    build:
+      context: .
+      dockerfile: apps/docker/frontend/Dockerfile
+    ports:
+      - 4173:4173
+    depends_on:
+      - server
+    networks:
+      - dev
+    environment:
+      VITE_SERVERURL: https://itemjunction.net
+      VITE_CLIENTURL: https://itemjunction.net
+      VITE_LANGUAURL: https://itemjunction.net
+   
+
+  
+  translate:
+    build:
+      context: .
+      dockerfile: apps/docker/translate/Dockerfile
+    ports:
+      - 3005:3005
+    depends_on:
+      - server
+    networks:
+      - dev
+      
+      
+  nginx:
+    image: nginx:latest
+    build:
+      context: .
+      dockerfile: apps/docker/nginx/Dockerfile
+    ports:        
+      - 80:80
+    depends_on:
+      - database
+      - server
+      - client
+    volumes:
+    - ./apps/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - dev
+
+  # bot:
+  #   build:
+  #     context: .
+  #     dockerfile: apps/docker/bot/Dockerfile
+
+  #   environment:
+  #     - TELEGRAM_TOKEN=7062310362:AAGrUmUxTl4gPi9CpaccJ3agmYEr6UbgCLQ
+
+networks:
+  dev:
+    driver: bridge
+
+volumes:
+  database_volumes:

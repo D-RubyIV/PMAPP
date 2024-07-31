@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* * {
+  @apply transition-colors duration-200
+} */
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* color-scheme: light dark; */
+  /* color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #4e4f60;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+td,
+th {
+  padding: 5px 2px 5px 2px;
+  text-align: center;
+}
+
+.underline-transition {
+  position: relative;
+}
+
+.underline-transition::after {
+  content: '';
+  position: absolute;
+  min-width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transition: transform 0.3s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.underline-transition-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Thanh cuộn chung */
+::-webkit-scrollbar {
+  width: 1px;
+  /* Chiều rộng của thanh cuộn */
+  height: 0px;
+  /* Chiều cao của thanh cuộn ngang */
+}
+
+/* Track của thanh cuộn */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Màu nền của track */
+}
+
+/* Thumb của thanh cuộn */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  /* Màu của thumb */
+  border-radius: 10px;
+  /* Bo tròn các góc của thumb */
+}
+
+/* Thumb khi hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* Màu của thumb khi hover */
+}
+
+
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  border: 0.15em solid #007a7e;
+  /* outline: 1px solid gray;
+  outline-offset: 2px; */
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  width: 1em;
+  background-color: #00397e;
+  position: relative;
+}
